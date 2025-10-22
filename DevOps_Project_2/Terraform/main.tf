@@ -1,9 +1,9 @@
-data "aws_ami" "amazon-linux" {
+data "aws_ami" "ubuntu" {
   most_recent = true
 
   filter {
     name   = "name"
-    values = ["amzn2-ami-kernel-5.10-hvm-*-x86_64-gp2"]
+    values = ["ubuntu/images/hvm-ssd/ubuntu-jammy-22.04-amd64-server-*"]
   }
 
   filter {
@@ -13,9 +13,9 @@ data "aws_ami" "amazon-linux" {
 }
 
 resource "aws_instance" "dev_machine" {
-  ami = data.aws_ami.amazon-linux.id
-  instance_type = "t2.micro"
-  key_name = "euran-jenkins"
+  ami = data.aws_ami.ubuntu.id
+  instance_type = "t3.micro"
+  key_name = "aws-pem-file"
 
   tags = {
     Environment = "dev"
